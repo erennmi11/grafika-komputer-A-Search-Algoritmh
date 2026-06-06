@@ -1,0 +1,24 @@
+/* =========================
+   VARA AMELIA — Kontrol pengguna 
+   ========================= */
+function resetCam(){
+  const PAD=60;
+  const sc=Math.min((W-PAD*2)/WS,(H-PAD*2)/WS);
+  cam.sc=sc;
+  cam.cx=(W-WS*sc)/2;
+  cam.cy=(H-WS*sc)/2;
+}
+
+function zoomBtn(f){
+  const wx=sx2w(W/2),wy=sy2w(H/2);
+  cam.sc=Math.max(0.05,Math.min(cam.sc*f,8));
+  cam.cx=W/2-wx*cam.sc;
+  cam.cy=H/2-wy*cam.sc;
+}
+
+function doZoom(f,screenX,screenY){
+  const wx=sx2w(screenX),wy=sy2w(screenY);
+  cam.sc=Math.max(0.05,Math.min(cam.sc*f,8));
+  cam.cx=screenX-wx*cam.sc;
+  cam.cy=screenY-wy*cam.sc;
+}

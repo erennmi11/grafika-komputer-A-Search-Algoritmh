@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Kota A*</title>
+<style>
+/* =========================
+   VARA AMELIA— HTML + CSS
+   Tampilan dasar, toolbar, panel info, toast
+   ========================= */
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#1a2e1a;overflow:hidden;}
+#wrap{width:100%;height:620px;position:relative;overflow:hidden;border-radius:10px;border:1px solid #2a4a2a}
+#c{display:block;cursor:grab;position:absolute;left:0;top:0;}
+#c.grabbing{cursor:grabbing}
+#tb{position:absolute;top:0;left:0;right:0;background:rgba(10,20,10,0.93);backdrop-filter:blur(6px);border-bottom:1px solid #1e3a1e;padding:6px 10px;display:flex;flex-wrap:wrap;gap:5px;align-items:center;z-index:20}
+.logo{font-size:12px;font-weight:800;color:#6dea6d;letter-spacing:2px}
+.sep{width:1px;height:18px;background:#1e3a1e}
+.btn{font-size:10px;padding:4px 10px;border:1px solid #2a4a2a;border-radius:5px;background:rgba(255,255,255,0.04);color:#9ab;cursor:pointer;font-weight:600;transition:all .15s}
+.btn:hover{border-color:#6dea6d55;color:#cdc;background:rgba(109,234,109,0.07)}
+.btn.sel{background:rgba(255,200,0,0.18);color:#ffc;border-color:#886600}
+.btn.go{background:rgba(0,200,100,0.18);color:#6dea6d;border-color:#1a6a3a}
+.btn.info{background:rgba(0,140,255,0.15);color:#6af;border-color:#005588}
+.btn.follow{background:rgba(255,140,0,0.18);color:#ffa044;border-color:#884400}
+#ib{position:absolute;bottom:10px;left:10px;background:rgba(5,15,5,0.88);backdrop-filter:blur(5px);border-radius:8px;border:1px solid #1e3a1e;padding:9px 13px;font-size:10px;color:#6a8a6a;line-height:2;z-index:20;min-width:160px;font-family:monospace}
+#ib b{color:#6dea6d}
+#toast{position:absolute;top:52px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.82);color:#cdc;font-size:11px;padding:5px 16px;border-radius:20px;z-index:30;pointer-events:none;opacity:0;transition:opacity .3s;white-space:nowrap;border:1px solid #1e3a1e}
+#spd{display:flex;align-items:center;gap:4px}
+#spd span{font-size:10px;color:#445}
+input[type=range]{width:48px;accent-color:#6dea6d;cursor:pointer}
+#spd b{font-size:10px;color:#6dea6d;min-width:22px}
+</style>
+</head>
+<body>
+<div id="wrap">
+<canvas id="c"></canvas>
+<div id="tb">
+  <span class="logo">A★KOTA</span>
+  <div class="sep"></div>
+  <button class="btn" onclick="initMap()">↺ Acak Peta</button>
+  <button class="btn" id="bS" onclick="setMode('start')">🚩 Start</button>
+  <button class="btn" id="bE" onclick="setMode('end')">🏁 Tujuan</button>
+  <button class="btn" onclick="randPos()">⚄ Acak Posisi</button>
+  <button class="btn go" onclick="runAstar()">▶️ Hitung A*</button>
+  <button class="btn info" id="bT" onclick="toggleTrack()">Mulai Perjalanan</button>
+  <button class="btn" id="bF" onclick="toggleFollow()">📷 Ikut Mobil: OFF</button>
+  <div class="sep"></div>
+  <div id="spd"><span>SPD</span><input type="range" id="sR" min="1" max="10" value="4"><b id="sL">4</b></div>
+  <button class="btn" onclick="zoomBtn(1.25)">＋</button>
+  <button class="btn" onclick="zoomBtn(0.8)">－</button>
+  <button class="btn" onclick="resetCam()">⊙ Fit</button>
+</div>
+<div id="ib">
+  <div>Status: <b id="iSt">Siap</b></div>
+  <div>Start: <b id="iSn">—</b></div>
+  <div>Tujuan: <b id="iEn">—</b></div>
+  <div>Jarak: <b id="iDi">—</b></div>
+  <div>Zoom: <b id="iZm">—</b></div>
+</div>
+<div id="toast"></div>
+</div>
+
+
+
+
+
